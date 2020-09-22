@@ -7,6 +7,14 @@ def dfunc(x):
     return 2*x
 
 def bagi_dua(f,a,b,eps):
+    """Algorithma Bagi Dua (bisection)
+
+    Args:
+        f (function): fungsi yang dicari akarnya
+        a (float): tebakan awal (interval a-b) 
+        b (float): tebakan awal (interval a-b) 
+        eps (float): batas ketelititan
+    """
     fa=f(a)
     fb=f(b)
 
@@ -30,6 +38,14 @@ def bagi_dua(f,a,b,eps):
     return c
 
 def posisi_palsu(f,a,b,eps):
+    """Algorithma Posisi Palsu 
+
+    Args:
+        f (function): fungsi yang dicari akarnya
+        a (float): tebakan awal (interval a-b) 
+        b (float): tebakan awal (interval a-b) 
+        eps (float): batas ketelititan
+    """
     fa=f(a)
     fb=f(b)
 
@@ -60,6 +76,14 @@ def posisi_palsu(f,a,b,eps):
     return c
 
 def modifikasi_posisi_palsu(f,a,b,eps):
+    """Algorithma Modifikasi Posisi Palsu 
+
+    Args:
+        f (function): fungsi yang dicari akarnya
+        a (float): tebakan awal (interval a-b) 
+        b (float): tebakan awal (interval a-b) 
+        eps (float): batas ketelititan
+    """
 
     fa=f(a)
     fb=f(b)
@@ -123,6 +147,16 @@ def newton_raphson(f,df,x,eps,maks):
     raise ArithmeticError("Proses belum konvergen")
 
 def tali_busur(f,x0,x1,eps,maks):
+    """Metode Tali Busur (Secant Method)
+
+    Args:
+        f (function): fungsi yang dicari akarnya
+        x0 (float): titik 1
+        x1 (float): titik 2
+        eps (float): batas ketelitian
+        maks (int): maksimum iterasi
+    """
+
     f0 = f(x0)
     f1 = f(x1)
     for iter in range(1,maks+1):
