@@ -71,6 +71,19 @@ def backwards(matrix):
         raise Exception("Tidak ada Solusi")
     return solution
 
+def find_determinant(matrix,pivot=False):
+    if pivot:
+        eliminate()
+    else:
+        eliminate_pivot()
+    det = 1
+    for i in range(row):
+        det = det*matrix[i][i]
+    
+    determinant = det
+    
+    return det
+
 
 def solve(matrix,pivot=False):
     if pivot:
