@@ -7,6 +7,13 @@ solution=[None for i in range(row)]
 determinant = None
 
 def eliminate(matrix):
+    """
+    Fungsi ini mengeliminasi matrix dengan Algorithma Gauss dan membuat matrix baru 
+
+    Note: 
+    * Gunakan ini hanya pada matrix yang belum di eliminasi
+    * Gunakan ini atau eliminate_pivot()
+    """
     for k in range(row-1):
         if abs(matrix[k][k])<10**-15:
             print("NotValidValue",(k,k))
@@ -22,6 +29,14 @@ def eliminate(matrix):
 
 
 def eliminate_pivot(matrix):
+    """
+    Fungsi ini mengeliminasi matrix dengan Algorithma Gauss 
+    dengan Penumpuan Parsial dan membuat matrix baru 
+
+    Note: 
+    * Gunakan ini hanya pada matrix yang belum di eliminasi
+    * Gunakan ini atau eliminate()
+    """
     for k in range(row-1):#Iterate from first row to the second last row
         #Begin pivoting
         m=k
@@ -53,7 +68,14 @@ def eliminate_pivot(matrix):
 
 
 def backwards(matrix):
-    dim = row -1 # n kalau di buku
+    """
+    Fungsi ini melakukan penyulihan mundur pada matrix yang telah dieliminasi 
+    dan akan menghasilan solusi 
+
+    Note: 
+    * Gunakan ini hanya pada matrix sudah di eliminasi
+    """
+    dim = row -1 # n kalau di buku modul
     if abs(matrix[dim][dim]) < 10**-15:
         print("NotValidValue",(dim,dim))
         raise Exception("Proses Gagal")
@@ -72,6 +94,13 @@ def backwards(matrix):
     return solution
 
 def find_determinant(matrix,pivot=False):
+    """
+    Fungsi ini mencari determinan pada matrix yang belum di eliminasi
+
+    Note: 
+    * Gunakan ini hanya pada matrix belum di eliminasi
+    * Tambahkan argumen True di argumen kedua untuk mengunakan metode pivot contoh solve(matrix,True)
+    """
     if pivot:
         eliminate()
     else:
@@ -86,6 +115,16 @@ def find_determinant(matrix,pivot=False):
 
 
 def solve(matrix,pivot=False):
+    """
+    Fungsi ini mencari solusi pada matrix yang belum di eliminasi
+    dengan menjalankan fungsi eliminate kemudian penyulihan mundur
+
+    Akan menghasilkan solusi 
+
+    Note: 
+    * Gunakan ini hanya pada matrix belum di eliminasi
+    * Tambahkan argumen True di argumen kedua untuk mengunakan metode pivot contoh solve(matrix,True)
+    """
     if pivot:
         eliminate_pivot(matrix)
     else:
