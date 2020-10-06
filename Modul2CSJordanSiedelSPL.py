@@ -8,8 +8,6 @@ constants = [2,-7,10,-5]
 matrix_np = np.mat(matrix)
 n = len(matrix)
 x = [2,2,6,3] 
-determinant = None
-
 
 def jacobi(matrix=matrix,constants=constants, n=n, max_iter=5,eps=10**-6):
     iter=0
@@ -36,7 +34,6 @@ def jacobi(matrix=matrix,constants=constants, n=n, max_iter=5,eps=10**-6):
             break
     return x
 
-
 def siedel(matrix=matrix,constants=constants, n=n, max_iter=4,eps=10**-6):
     iter=0
     while True: 
@@ -61,5 +58,32 @@ def siedel(matrix=matrix,constants=constants, n=n, max_iter=4,eps=10**-6):
             break
     return x
 
-jacobi()
-siedel()
+def luDecomposition(matrix=matrix):
+    n=len(matrix)
+    l = [[0 for i in range(n)] for j in range(n)]
+    u = [[0 for i in range(n)] for j in range(n)]
+    #Start decomposition
+    for i in range(n):
+        #U Matrix
+        for k in range(i,n):
+            sum = 0
+            for j in range(i):
+                sum += (l[i][j] * u[j][k])
+            u[i][k] = matrix[i][k] - sum 
+        #L Matrix
+        for k in range(i,n):
+            if(i==k):
+                l[i][i]=1
+            else:
+                sum = 0
+                for j in range(i):
+                    sum = (l[k][j] * u[j][i])
+                l[k][i] = (matrix[k][i] - sum)/u[i][i]
+    
+    print(f"L Matrix:\n",np.mat(l))
+    print(f"U Matrix:\n",np.mat(u))
+
+
+    return np.mat(l),np.mat(u)
+
+luDecomposition()
