@@ -1,27 +1,29 @@
+from math import exp
+
 def func(x):
-    """Fungsi yang dicari akarnya""" 
-    return (x**2)-2
+    """Fungsi yang dicari akarnya"""
+    return (x*exp(-x))
 
 def dfunc(x):
-    """Turunan fungsi yang di cari akarnya""" 
-    return 2*x
+    """Turunan fungsi yang di cari akarnya"""
+    return (1-x)*exp(-x)
 
 def bagi_dua(f,a,b,eps):
     """Algorithma Bagi Dua (bisection)
 
     Args:
         f (function): fungsi yang dicari akarnya
-        a (float): tebakan awal (interval a-b) 
-        b (float): tebakan awal (interval a-b) 
+        a (float): tebakan awal (interval a-b)
+        b (float): tebakan awal (interval a-b)
         eps (float): batas ketelititan
     """
     fa=f(a)
     fb=f(b)
 
-    if b<=a or 0<=fa*fb: 
+    if b<=a or 0<=fa*fb:
         raise ValueError("Tebakan awal tidak sesuai")
 
-   
+
     while abs(b-a) > eps :
         c = (a+b)/2
         fc=f(c)
@@ -38,18 +40,18 @@ def bagi_dua(f,a,b,eps):
     return c
 
 def posisi_palsu(f,a,b,eps):
-    """Algorithma Posisi Palsu 
+    """Algorithma Posisi Palsu
 
     Args:
         f (function): fungsi yang dicari akarnya
-        a (float): tebakan awal (interval a-b) 
-        b (float): tebakan awal (interval a-b) 
+        a (float): tebakan awal (interval a-b)
+        b (float): tebakan awal (interval a-b)
         eps (float): batas ketelititan
     """
     fa=f(a)
     fb=f(b)
 
-    if b<=a or 0<=fa*fb: 
+    if b<=a or 0<=fa*fb:
         raise ValueError("Tebakan awal tidak sesuai")
 
     clama= 2*b-a
@@ -76,19 +78,19 @@ def posisi_palsu(f,a,b,eps):
     return c
 
 def modifikasi_posisi_palsu(f,a,b,eps):
-    """Algorithma Modifikasi Posisi Palsu 
+    """Algorithma Modifikasi Posisi Palsu
 
     Args:
         f (function): fungsi yang dicari akarnya
-        a (float): tebakan awal (interval a-b) 
-        b (float): tebakan awal (interval a-b) 
+        a (float): tebakan awal (interval a-b)
+        b (float): tebakan awal (interval a-b)
         eps (float): batas ketelititan
     """
 
     fa=f(a)
     fb=f(b)
 
-    if b<=a or 0<=fa*fb: 
+    if b<=a or 0<=fa*fb:
         raise ValueError("Tebakan awal tidak sesuai")
 
     clama= 2*b-a
@@ -139,7 +141,7 @@ def newton_raphson(f,df,x,eps,maks):
             break
         xbaru = x-f(x)/d
         delta = abs(xbaru-x)/abs(xbaru)
-        print(f"x untuk iterasi-{iter}: {xbaru}")
+        print(f"x untuk iterasi-{iter}: {round(xbaru,7)}")
         if delta < eps :
             print(f"Akar:{xbaru}")
             return xbaru
@@ -185,13 +187,13 @@ def newton_raphson_polinom(n,a,z,eps,maks):
     for i in range(iter):
 
         # Array di copy untuk menghindari komplikasi variabel non-primitif
-        b= a.copy() 
+        b= a.copy()
         c= b.copy()
 
         b = [a[i]+b[i+1]*z for i in range(1,n)]
         c = [b[i]+c[i+1]*z for i in range(1,n)]
         b[0] = a[0] + b[1]*z
-        
+
         if abs(c[1]<10**-12):
             raise ArithmeticError("Proses Gagal")
 
@@ -201,3 +203,6 @@ def newton_raphson_polinom(n,a,z,eps,maks):
         if delta < eps :
             return zbaru
     raise ArithmeticError("Proses belum konvergen")
+
+
+newton_raphson(func,dfunc,0.2,10**-14,5)
